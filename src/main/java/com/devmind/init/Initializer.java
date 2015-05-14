@@ -14,16 +14,18 @@ import com.devmind.repository.TalkRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.stereotype.Component;
 
 /**
  * Initialize the data
  */
+@Component
 public class Initializer {
 
     @Autowired
     private ResourceLoader resourceLoader;
 
-    @Autowired
+        @Autowired
     private InterestRepository interestRepository;
 
     @Autowired
@@ -34,6 +36,7 @@ public class Initializer {
 
     @PostConstruct
     public void init() {
+
         ObjectMapper objectMapper = new ObjectMapper();
 
         //The Json file is loaded
