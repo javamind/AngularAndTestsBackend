@@ -1,11 +1,10 @@
 package com.devmind;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.core.io.ResourceLoader;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+@EnableJpaRepositories
 @SpringBootApplication
 public class AngularAndTestsApplication {
 

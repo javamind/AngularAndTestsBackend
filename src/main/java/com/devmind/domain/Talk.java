@@ -4,9 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @Entity
 public class Talk {
@@ -135,8 +140,8 @@ public class Talk {
     }
 
     public Talk addSpeaker(Speaker speaker) {
-        this.speakers.add(speaker);
         speaker.setTalk(this);
+        this.speakers.add(speaker);
         return this;
     }
 
@@ -146,9 +151,7 @@ public class Talk {
     }
 
     public Talk addAllSpeakers(List<Speaker> speakers) {
-        for(Speaker speaker : speakers){
-            addSpeaker(speaker);
-        }
+        speakers.forEach(s -> addSpeaker(s));
         return this;
     }
 
@@ -162,8 +165,8 @@ public class Talk {
     }
 
     public Talk addInterest(Interest interest) {
-        this.interests.add(interest);
         interest.setTalk(this);
+        this.interests.add(interest);
         return this;
     }
     public Talk clearInterests() {
@@ -172,9 +175,7 @@ public class Talk {
     }
 
     public Talk addAllInterests(List<Interest> interests) {
-        for(Interest interest : interests){
-            addInterest(interest);
-        }
+        interests.forEach(i -> addInterest(i));
         return this;
     }
     public Talk removeInterest(Interest interest) {

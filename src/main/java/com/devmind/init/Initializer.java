@@ -43,26 +43,33 @@ public class Initializer {
                     objectMapper.getTypeFactory().constructCollectionType(List.class, Talk.class));
 
             for (Talk talk : talks) {
-
                 List<Speaker> speakers = new ArrayList<>();
-                if (talk.getSpeakers() != null) {
-                    for (Speaker speaker : talk.getSpeakers()) {
-                        speakers.add(speakerRepository.save(speaker));
-                    }
-
-                }
-                talk.clearSpeakers().addAllSpeakers(speakers);
-
                 List<Interest> interests = new ArrayList<>();
+
                 if (talk.getInterests() != null) {
-                    for (Interest interest : talk.getInterests()) {
+                    talk.getInterests().forEach(interest -> {
+                        interest.setTalk(null);
                         interests.add(interestRepository.save(interest));
-                    }
-
+                    });
                 }
-                talk.clearInterests().addAllInterests(interests);
+                if (talk.getSpeakers() != null) {
+                    talk.getSpeakers().forEach(speaker -> {
+                        speaker.setTalk(null);
+                        speakers.add(speakerRepository.save(speaker));
+                    });
+                }
 
-                talkRepository.save(talk);
+                talk.clearSpeakers();
+                talk.clearInterests();
+
+                Talk persisted = talkRepository.save(talk);
+
+                persisted.addAllSpeakers(speakers);
+                persisted.addAllInterests(interests);
+
+                persisted.getInterests().forEach(interest -> interestRepository.save(interest));
+                persisted.getSpeakers().forEach(speaker -> speakerRepository.save(speaker));
+
             }
 
 
