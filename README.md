@@ -1,6 +1,6 @@
 # AngularAndTestsBackend
 
-![Dev-Mind](http://dev-mind.fr/images/bbed4f5c.logo_new.png)
+![Dev-Mind](http://dev-mind.fr/logo/logo_1500.png)
 
 Cette application a été écrite avec [Spring Boot](http://projects.spring.io/spring-boot/) et plus particulièrement [Spring Data Rest](http://projects.spring.io/spring-data-rest/).
 
